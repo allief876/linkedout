@@ -1,0 +1,10 @@
+D:\STEI 2019\Semester 4\Strategi Algoritma\Tubes 2\PrototypeUI\PrototypeUI\bin\Debug\PrototypeUI.exe.config
+D:\STEI 2019\Semester 4\Strategi Algoritma\Tubes 2\PrototypeUI\PrototypeUI\bin\Debug\PrototypeUI.exe
+D:\STEI 2019\Semester 4\Strategi Algoritma\Tubes 2\PrototypeUI\PrototypeUI\bin\Debug\PrototypeUI.pdb
+D:\STEI 2019\Semester 4\Strategi Algoritma\Tubes 2\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.csprojAssemblyReference.cache
+D:\STEI 2019\Semester 4\Strategi Algoritma\Tubes 2\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.Form1.resources
+D:\STEI 2019\Semester 4\Strategi Algoritma\Tubes 2\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.Properties.Resources.resources
+D:\STEI 2019\Semester 4\Strategi Algoritma\Tubes 2\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.csproj.GenerateResource.cache
+D:\STEI 2019\Semester 4\Strategi Algoritma\Tubes 2\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.csproj.CoreCompileInputs.cache
+D:\STEI 2019\Semester 4\Strategi Algoritma\Tubes 2\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.exe
+D:\STEI 2019\Semester 4\Strategi Algoritma\Tubes 2\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.pdb
