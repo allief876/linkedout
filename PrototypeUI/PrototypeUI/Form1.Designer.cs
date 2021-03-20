@@ -42,7 +42,6 @@ namespace PrototypeUI
             this.Cbb_1 = new System.Windows.Forms.ComboBox();
             this.btn_submit = new System.Windows.Forms.Button();
             this.Lbl_FriendsRecom = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -179,16 +178,6 @@ namespace PrototypeUI
             this.Lbl_FriendsRecom.TabIndex = 13;
             this.Lbl_FriendsRecom.Text = "Friends Recommendation:";
             // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Arial Black", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(88, 180);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(596, 227);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "PlaceHolder Visualisasi Graph";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -199,7 +188,6 @@ namespace PrototypeUI
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(742, 750);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.Lbl_FriendsRecom);
             this.Controls.Add(this.btn_submit);
             this.Controls.Add(this.Cbb_1);
@@ -237,7 +225,6 @@ namespace PrototypeUI
         private System.Windows.Forms.ComboBox Cbb_1;
         private System.Windows.Forms.Button btn_submit;
         private System.Windows.Forms.Label Lbl_FriendsRecom;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
