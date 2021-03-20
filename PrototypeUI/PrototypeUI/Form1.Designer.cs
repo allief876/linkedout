@@ -43,6 +43,7 @@ namespace PrototypeUI
             this.btn_submit = new System.Windows.Forms.Button();
             this.Lbl_FriendsRecom = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.panelViewer = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -183,11 +184,19 @@ namespace PrototypeUI
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
+            // panelViewer
+            // 
+            this.panelViewer.Location = new System.Drawing.Point(83, 162);
+            this.panelViewer.Name = "panelViewer";
+            this.panelViewer.Size = new System.Drawing.Size(647, 271);
+            this.panelViewer.TabIndex = 14;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(742, 750);
+            this.Controls.Add(this.panelViewer);
             this.Controls.Add(this.Lbl_FriendsRecom);
             this.Controls.Add(this.btn_submit);
             this.Controls.Add(this.Cbb_1);
@@ -226,6 +235,7 @@ namespace PrototypeUI
         private System.Windows.Forms.Button btn_submit;
         private System.Windows.Forms.Label Lbl_FriendsRecom;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Panel panelViewer;
     }
 }
 

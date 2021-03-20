@@ -32,15 +32,20 @@ namespace PrototypeUI
             c.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Diamond;
 
             // Set Graph Viewer Size, tapi titik anchor viewernya masih gatau gimana -Asadel
-            viewer.Size = new System.Drawing.Size(758, 394);
-
+            //viewer.Size = new System.Drawing.Size(758, 394);
+            
             //bind the graph to the viewer 
             viewer.Graph = graph;
             //associate the viewer with the form 
             this.SuspendLayout();
             //viewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Controls.Add(viewer);
+            //this.Controls.Add(viewer);
+
+            this.panelViewer.Controls.Add(viewer);
+
             this.ResumeLayout();
+
+            
 
 
         }
