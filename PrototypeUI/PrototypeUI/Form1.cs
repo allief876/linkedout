@@ -559,16 +559,10 @@ namespace PrototypeUI
                         int count = friendwithmutual.Where(x => x == ttg).Count();
                         friendwithmutualcount.Add(count);
                     }
-                    foreach (int h in graph)
-                    {
-                        foreach (int i in friendwithmutualdist)
-                        {
-                            Console.WriteLine(graph[i]);
-                        }
-
-                    }
-                    
+                    //friendwithmutualdist.Sort();
+                    Console.WriteLine("Temennya temen:");
                     friendwithmutualdist.ForEach(Console.WriteLine);
+                    Console.WriteLine("Jumlah:");
                     friendwithmutualcount.ForEach(Console.WriteLine);
 
 
