@@ -17,6 +17,7 @@ namespace PrototypeUI
         private int[,] graph;
         private List<String> node;
         private List<int> visited;
+        private Microsoft.Msagl.Drawing.Graph graph_pic = new Microsoft.Msagl.Drawing.Graph("graph");
 
         public Form1()
         {
@@ -52,7 +53,7 @@ namespace PrototypeUI
         {
             
         }
-
+        // button browse
         private void button1_Click(object sender, EventArgs e) //Browse
         {
             
@@ -84,6 +85,7 @@ namespace PrototypeUI
 
         private void parsingFile(string[] lines)
         {
+            visited = new List<int>();
             int length = int.Parse(lines[0]);
 
             // list of string orang ini dipake buat nampung nama-nama di string[] lines
@@ -131,7 +133,8 @@ namespace PrototypeUI
             //create a viewer object 
             Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
             //create a graph object 
-            Microsoft.Msagl.Drawing.Graph graph_pic = new Microsoft.Msagl.Drawing.Graph("graph");
+            
+
             //graph_pic.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
             //graph_pic.Attr.ArrowheadAtSource = Microsoft.Msagl.Drawing.ArrowStyle.None;
             //create the graph content 
@@ -140,9 +143,12 @@ namespace PrototypeUI
             {
                 //create the graph content 
                 lines2 = lines[i].Split((string[])null, StringSplitOptions.RemoveEmptyEntries);
-                graph_pic.AddEdge(lines2[0], lines2[1]).Attr.ArrowheadAtSource = Microsoft.Msagl.Drawing.ArrowStyle.Normal;
+                var edge = graph_pic.AddEdge(lines2[0], lines2[1]);
+                edge.Attr.ArrowheadAtSource = Microsoft.Msagl.Drawing.ArrowStyle.None;
+                edge.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
                 graph[node.IndexOf(lines2[0]), node.IndexOf(lines2[1])] = 1;
                 graph[node.IndexOf(lines2[1]), node.IndexOf(lines2[0])] = 1;
+                
             }
 
             //bind the graph to the viewer 
@@ -303,11 +309,74 @@ namespace PrototypeUI
             if (this.cbb_Feature.SelectedItem.ToString() == FriendRecom )
             {
                 this.Cbb_2.Enabled = false;
+                this.radioButton1.Enabled = false;
+                this.radioButton2.Enabled = false;
             }
             else
             {
                 this.Cbb_2.Enabled = true;
             }
+        }
+        private void addColorFromMatrix(int[,] colorMatrix)
+        {
+            Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
+            Microsoft.Msagl.Drawing.Graph graph_pic2 = new Microsoft.Msagl.Drawing.Graph("graph");
+            int n = node.Count;
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (i != j && i < j && graph[i, j] == 1)
+                    {
+                        var edge = graph_pic2.AddEdge(node[i], node[j]);
+                        edge.Attr.ArrowheadAtSource = Microsoft.Msagl.Drawing.ArrowStyle.None;
+                        edge.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
+                        if (colorMatrix[i, j] == 1)
+                        {
+                            edge.Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                            graph_pic2.FindNode(node[i]).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Magenta;
+                            graph_pic2.FindNode(node[j]).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Magenta;
+                        }
+                    }
+                }
+            }
+
+            viewer.Graph = graph_pic2;
+            viewer.Name = "graphViewer";
+
+            this.SuspendLayout();
+            this.panelViewer.Controls.Clear();
+            this.panelViewer.Controls.Add(viewer);
+            this.ResumeLayout();
+        }
+        private void resetGraph()
+        {
+            Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
+            viewer.Graph = graph_pic;
+            viewer.Name = "graphViewer";
+
+            this.SuspendLayout();
+            this.panelViewer.Controls.Clear();
+            this.panelViewer.Controls.Add(viewer);
+            this.ResumeLayout();
+        }
+
+        private void btn_reset_Click(object sender, EventArgs e)
+        {
+            //this.cbb_Feature.SelectedItem = n;
+            this.cbb_Feature.ResetText();
+
+            //this.Cbb_1.Items.Clear();
+            this.Cbb_1.ResetText();
+
+            //this.Cbb_2.Items.Clear();
+            this.Cbb_2.ResetText();
+            //dfs button
+            this.radioButton1.Checked = false;
+            //bfs button
+            this.radioButton2.Checked = false;
+
         }
     }
 }
