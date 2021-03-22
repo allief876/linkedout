@@ -56,7 +56,9 @@ namespace PrototypeUI
         // button browse
         private void button1_Click(object sender, EventArgs e) //Browse
         {
-            
+            this.SuspendLayout();
+            this.panelViewer.Controls.Clear();
+            this.ResumeLayout();
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             int size = -1;
             DialogResult result = openFileDialog1.ShowDialog(); // Show the dialog.
@@ -78,6 +80,8 @@ namespace PrototypeUI
                 {
                 }
             }
+
+            
             Console.WriteLine(size); // <-- Shows file size in debugging mode.
             Console.WriteLine(result); // <-- For debugging use.       
             //Console.WriteLine(this.Cbb_1.Items[Cbb_1.SelectedIndex].ToString());
@@ -317,6 +321,8 @@ namespace PrototypeUI
             else
             {
                 this.Cbb_2.Enabled = true;
+                this.radioButton1.Enabled = true;
+                this.radioButton2.Enabled = true;
             }
         }
         private void addColorFromMatrix(int[,] colorMatrix)
@@ -352,6 +358,7 @@ namespace PrototypeUI
             this.panelViewer.Controls.Add(viewer);
             this.ResumeLayout();
         }
+        //
         private void resetGraph()
         {
             Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
@@ -378,7 +385,188 @@ namespace PrototypeUI
             this.radioButton1.Checked = false;
             //bfs button
             this.radioButton2.Checked = false;
+            resetGraph();
 
+        }
+        private bool SudahDikunjungiSemua(bool[] visited)
+        {
+            int i = 0;
+            while (i < visited.Length)
+            {
+                if (!visited[i])
+                {
+                    return false;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            return true;
+        }
+        private void BFS(string str, List<string> orang_dist, int[,] matrix_adj, string target)
+        {
+            // Visited vector to so that
+            // a vertex is not visited more than once
+            // Initializing the vector to false as no
+            // vertex is visited at the beginning
+
+            int idx_target = orang_dist.IndexOf(target);
+            int v = orang_dist.Count;
+            bool[] visited = new bool[v];
+
+            int start = orang_dist.IndexOf(str);
+
+            for (int i = 0; i < visited.Length; i++)
+            {
+                visited[i] = false;
+            }
+
+            List<int> q = new List<int>();
+            q.Add(start);
+
+            // Set source as visited
+            visited[start] = true;
+            int[,] matrix_adj_new = new int[orang_dist.Count, orang_dist.Count];
+
+            int vis;
+
+            while (q.Count != 0 && !SudahDikunjungiSemua(visited))
+            {
+                vis = q[0];
+
+                // Print the current node
+                Console.Write(orang_dist[vis] + " ");
+                q.Remove(q[0]);
+
+                // For every adjacent vertex to the current vertex
+                for (int i = 0; i < v; i++)
+                {
+                    if (matrix_adj[vis, i] == 1 && (!visited[i]))
+                    {
+
+                        // Push the adjacent node to the queue
+                        q.Add(i);
+                        q.Sort();
+
+                        // Set
+                        visited[i] = true;
+                        matrix_adj_new[vis, i] = 1;
+                        matrix_adj_new[i, vis] = 1;
+                    }
+                }
+
+                if (q.Count == 0) // Cek ada node yang tidak terhubung
+                {
+                    int i = 0;
+                    bool ketemu = false;
+                    while (i < visited.Length && !ketemu)
+                    {
+                        if (!visited[i])
+                        {
+                            q.Add(i);
+                            visited[i] = true;
+                            ketemu = true;
+                        }
+                        i++;
+                    }
+                }
+            }
+
+            Console.Write("\n");
+
+            for (int i = 0; i < orang_dist.Count; i++)
+            {
+                for (int j = 0; j < orang_dist.Count; j++)
+                {
+                    Console.Write(matrix_adj_new[i, j] + " ");
+                }
+                Console.Write("\n");
+            }
+
+            int edge_new = 0;
+
+            for (int i = 0; i < orang_dist.Count; i++)
+            {
+                for (int j = 0; j < orang_dist.Count; j++)
+                {
+                    edge_new += matrix_adj_new[i, j];
+                }
+            }
+
+            Console.Write(edge_new / 2 + "\n\n");
+
+            for (int i = 0; i < visited.Length; i++)
+            {
+                visited[i] = false;
+            }
+
+            // Traversal pohon BFS
+            q.Clear(); // q disini berperan sebagai himpunan solusi
+            q.Add(start);
+            visited[start] = true;
+            int total_visited = 1;
+
+            if (!visited[idx_target])
+            {
+                Console.Write("Tidak ada jalur koneksi yang tersedia.\n");
+                Console.Write("Anda harus memulai koneksi baru itu sendiri.\n");
+            }
+
+            q.Clear();
+            orang_dist.Clear();
+        }
+        private void btn_submit_Click(object sender, EventArgs e)
+        {
+            string FriendRecom = "Friends Recommendation";
+            string selecteditem = this.cbb_Feature.SelectedItem.ToString();
+            resetGraph();
+
+            if (selecteditem != null)
+            {
+                if (this.cbb_Feature.SelectedItem.ToString() == FriendRecom)
+                {
+                    // do recom
+                }
+                else
+                {
+
+                    String type = "";
+
+                    if (this.radioButton1.Checked && !this.radioButton2.Checked)
+                    {
+                        type = "dfs";
+                    }
+                    else if (!this.radioButton1.Checked && this.radioButton2.Checked)
+                    {
+                        type = "bfs";
+                    }
+                    String account = this.Cbb_1.Items[Cbb_1.SelectedIndex].ToString();
+                    String target = this.Cbb_2.Items[Cbb_2.SelectedIndex].ToString();
+
+                    if (type == "dfs")
+                    {
+                        int accidx = node.FindIndex(name => name == account);
+                        int targetidx = node.FindIndex(name => name == target);
+                        int[,] result = dfs(accidx, targetidx);
+                        if (result != null)
+                        {
+                            addColorFromMatrix(result);
+                            // blm ditambahin output text
+                            clearVisited();
+                        }
+                        else
+                        {
+                            // handling error
+                        }
+                    }
+                    else if (type == "bfs")
+                    {
+                        BFS(account, node, graph, target);
+
+                    }
+                }
+            }
         }
     }
 }
