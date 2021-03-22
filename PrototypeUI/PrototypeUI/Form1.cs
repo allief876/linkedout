@@ -495,26 +495,9 @@ namespace PrototypeUI
             }
 
             Console.Write(edge_new / 2 + "\n\n");
+            addColorFromMatrix(matrix_adj_new);
 
-            for (int i = 0; i < visited.Length; i++)
-            {
-                visited[i] = false;
-            }
 
-            // Traversal pohon BFS
-            q.Clear(); // q disini berperan sebagai himpunan solusi
-            q.Add(start);
-            visited[start] = true;
-            int total_visited = 1;
-
-            if (!visited[idx_target])
-            {
-                Console.Write("Tidak ada jalur koneksi yang tersedia.\n");
-                Console.Write("Anda harus memulai koneksi baru itu sendiri.\n");
-            }
-
-            q.Clear();
-            orang_dist.Clear();
         }
 
         private void btn_submit_Click_1(object sender, EventArgs e)
@@ -562,9 +545,18 @@ namespace PrototypeUI
                     }
                     //friendwithmutualdist.Sort();
                     Console.WriteLine("Temennya temen:");
-                    friendwithmutualdist.ForEach(Console.WriteLine);
-                    Console.WriteLine("Jumlah:");
-                    friendwithmutualcount.ForEach(Console.WriteLine);
+                    Console.WriteLine();
+                    int j = 0;
+                    foreach (int i in friendwithmutualdist)
+                    {
+                        Console.WriteLine(node[i]);
+                        Console.WriteLine("dengan jumlah mutual:");
+                        Console.WriteLine(friendwithmutualcount[j]);
+                        Console.WriteLine(node[friendwithmutual[j]]);
+                        Console.WriteLine();
+                        j++;
+                    }
+              
 
 
 
