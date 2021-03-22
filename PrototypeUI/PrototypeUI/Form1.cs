@@ -69,7 +69,7 @@ namespace PrototypeUI
                 {
                     string[] text = File.ReadAllLines(file);
                     size = text.Length;
-                    Console.WriteLine(text);
+                    //Console.WriteLine(text); <-- debugging mode
                     parsingFile(text);
 
                     this.lbl_filename.Text =(Path.GetFileName(file));
@@ -82,9 +82,9 @@ namespace PrototypeUI
             }
 
             
-            Console.WriteLine(size); // <-- Shows file size in debugging mode.
-            Console.WriteLine(result); // <-- For debugging use.       
-            //Console.WriteLine(this.Cbb_1.Items[Cbb_1.SelectedIndex].ToString());
+            //Console.WriteLine(size); // <-- Shows file size in debugging mode.
+            //Console.WriteLine(result); // <-- For debugging use.       
+            
         }
 
         private void parsingFile(string[] lines)
@@ -516,7 +516,8 @@ namespace PrototypeUI
             q.Clear();
             orang_dist.Clear();
         }
-        private void btn_submit_Click(object sender, EventArgs e)
+
+        private void btn_submit_Click_1(object sender, EventArgs e)
         {
             string FriendRecom = "Friends Recommendation";
             string selecteditem = this.cbb_Feature.SelectedItem.ToString();
@@ -524,14 +525,60 @@ namespace PrototypeUI
 
             if (selecteditem != null)
             {
-                if (this.cbb_Feature.SelectedItem.ToString() == FriendRecom)
+                String account = this.Cbb_1.Items[Cbb_1.SelectedIndex].ToString();
+                if (selecteditem == FriendRecom)
                 {
-                    // do recom
+                    int accidx = node.FindIndex(name => name == account);
+
+                    /**List<int> ListTetanggaAwal;
+                    List<int> ListTetanggaAkhir;
+                    ListTetanggaAwal = tetangga(accidx);
+
+                    foreach (int i in ListTetanggaAwal){
+                        ListTetanggaAkhir = tetangga(i);
+                    }
+                    ListTetanggaAkhir.Distinct**/
+                    List<int> tetanggaaccount = tetangga(accidx);
+                    List<int> friendwithmutual = new List<int>();
+                    List<int> friendwithmutualdist;
+                    List<int> friendwithmutualcount = new List<int>();
+
+                  
+                    foreach (int ttg in tetanggaaccount)
+                    {
+                        foreach (int ttg2 in tetangga(ttg))
+                        {
+                            friendwithmutual.Add(ttg2);
+                        }
+                    }
+
+                    friendwithmutualdist = friendwithmutual.Distinct().ToList();
+
+                    foreach (int ttg in friendwithmutualdist)
+                    {
+                        int count = friendwithmutual.Where(x => x == ttg).Count();
+                        friendwithmutualcount.Add(count);
+                    }
+                    foreach (int h in graph)
+                    {
+                        foreach (int i in friendwithmutualdist)
+                        {
+                            Console.WriteLine(graph[i]);
+                        }
+
+                    }
+                    
+                    friendwithmutualdist.ForEach(Console.WriteLine);
+                    friendwithmutualcount.ForEach(Console.WriteLine);
+
+
+
                 }
                 else
                 {
 
                     String type = "";
+                    String target = this.Cbb_2.Items[Cbb_2.SelectedIndex].ToString();
 
                     if (this.radioButton1.Checked && !this.radioButton2.Checked)
                     {
@@ -541,8 +588,7 @@ namespace PrototypeUI
                     {
                         type = "bfs";
                     }
-                    String account = this.Cbb_1.Items[Cbb_1.SelectedIndex].ToString();
-                    String target = this.Cbb_2.Items[Cbb_2.SelectedIndex].ToString();
+                    
 
                     if (type == "dfs")
                     {
@@ -567,6 +613,7 @@ namespace PrototypeUI
                     }
                 }
             }
+
         }
     }
 }
