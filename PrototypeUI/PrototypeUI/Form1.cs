@@ -548,7 +548,8 @@ namespace PrototypeUI
                     {
                         foreach (int ttg2 in tetangga(ttg))
                         {
-                            friendwithmutual.Add(ttg2);
+                            bool idx = tetanggaaccount.FindIndex(x => x == ttg2) != -1;
+                            if (!idx&&(ttg2!=accidx)) friendwithmutual.Add(ttg2);
                         }
                     }
 
