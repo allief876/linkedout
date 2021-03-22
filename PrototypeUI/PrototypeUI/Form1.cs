@@ -17,8 +17,7 @@ namespace PrototypeUI
         private int[,] graph;
         private List<String> node;
         private List<int> visited;
-        private Microsoft.Msagl.Drawing.Graph graph_pic = new Microsoft.Msagl.Drawing.Graph("graph");
-
+        private Microsoft.Msagl.Drawing.Graph graph_pic;
         public Form1()
         {
             InitializeComponent();
@@ -91,6 +90,7 @@ namespace PrototypeUI
         {
             visited = new List<int>();
             int length = int.Parse(lines[0]);
+            graph_pic = new Microsoft.Msagl.Drawing.Graph("graph");
 
             // list of string orang ini dipake buat nampung nama-nama di string[] lines
             var orang = new List<string>();
@@ -342,7 +342,7 @@ namespace PrototypeUI
                         edge.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
                         if (colorMatrix[i, j] == 1)
                         {
-                            edge.Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                            edge.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
                             graph_pic2.FindNode(node[i]).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Magenta;
                             graph_pic2.FindNode(node[j]).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Magenta;
                         }
