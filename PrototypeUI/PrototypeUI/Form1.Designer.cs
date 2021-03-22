@@ -45,6 +45,8 @@ namespace PrototypeUI
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panelViewer = new System.Windows.Forms.Panel();
             this.lbl_filename = new System.Windows.Forms.Label();
+            this.lbl_ChooseFtr = new System.Windows.Forms.Label();
+            this.cbb_Feature = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -124,7 +126,7 @@ namespace PrototypeUI
             // 
             this.Lbl_ChooseAcc.AutoSize = true;
             this.Lbl_ChooseAcc.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Lbl_ChooseAcc.Location = new System.Drawing.Point(87, 436);
+            this.Lbl_ChooseAcc.Location = new System.Drawing.Point(79, 497);
             this.Lbl_ChooseAcc.Name = "Lbl_ChooseAcc";
             this.Lbl_ChooseAcc.Size = new System.Drawing.Size(155, 22);
             this.Lbl_ChooseAcc.TabIndex = 7;
@@ -135,7 +137,7 @@ namespace PrototypeUI
             // 
             this.Lbl_ExploreFriends.AutoSize = true;
             this.Lbl_ExploreFriends.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Lbl_ExploreFriends.Location = new System.Drawing.Point(87, 473);
+            this.Lbl_ExploreFriends.Location = new System.Drawing.Point(79, 534);
             this.Lbl_ExploreFriends.Name = "Lbl_ExploreFriends";
             this.Lbl_ExploreFriends.Size = new System.Drawing.Size(192, 22);
             this.Lbl_ExploreFriends.TabIndex = 8;
@@ -145,7 +147,7 @@ namespace PrototypeUI
             // Cbb_2
             // 
             this.Cbb_2.FormattingEnabled = true;
-            this.Cbb_2.Location = new System.Drawing.Point(328, 474);
+            this.Cbb_2.Location = new System.Drawing.Point(320, 535);
             this.Cbb_2.Name = "Cbb_2";
             this.Cbb_2.Size = new System.Drawing.Size(121, 21);
             this.Cbb_2.TabIndex = 10;
@@ -154,7 +156,7 @@ namespace PrototypeUI
             // Cbb_1
             // 
             this.Cbb_1.FormattingEnabled = true;
-            this.Cbb_1.Location = new System.Drawing.Point(328, 436);
+            this.Cbb_1.Location = new System.Drawing.Point(320, 497);
             this.Cbb_1.Name = "Cbb_1";
             this.Cbb_1.Size = new System.Drawing.Size(121, 21);
             this.Cbb_1.TabIndex = 11;
@@ -163,7 +165,7 @@ namespace PrototypeUI
             // btn_submit
             // 
             this.btn_submit.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_submit.Location = new System.Drawing.Point(91, 507);
+            this.btn_submit.Location = new System.Drawing.Point(83, 568);
             this.btn_submit.Name = "btn_submit";
             this.btn_submit.Size = new System.Drawing.Size(123, 34);
             this.btn_submit.TabIndex = 12;
@@ -174,11 +176,11 @@ namespace PrototypeUI
             // 
             this.Lbl_FriendsRecom.AutoSize = true;
             this.Lbl_FriendsRecom.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Lbl_FriendsRecom.Location = new System.Drawing.Point(87, 560);
+            this.Lbl_FriendsRecom.Location = new System.Drawing.Point(79, 621);
             this.Lbl_FriendsRecom.Name = "Lbl_FriendsRecom";
-            this.Lbl_FriendsRecom.Size = new System.Drawing.Size(234, 22);
+            this.Lbl_FriendsRecom.Size = new System.Drawing.Size(138, 22);
             this.Lbl_FriendsRecom.TabIndex = 13;
-            this.Lbl_FriendsRecom.Text = "Friends Recommendation:";
+            this.Lbl_FriendsRecom.Text = "Friends Result:";
             // 
             // openFileDialog1
             // 
@@ -201,11 +203,35 @@ namespace PrototypeUI
             this.lbl_filename.TabIndex = 15;
             this.lbl_filename.Click += new System.EventHandler(this.lbl_filename_Click);
             // 
+            // lbl_ChooseFtr
+            // 
+            this.lbl_ChooseFtr.AutoSize = true;
+            this.lbl_ChooseFtr.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_ChooseFtr.Location = new System.Drawing.Point(79, 457);
+            this.lbl_ChooseFtr.Name = "lbl_ChooseFtr";
+            this.lbl_ChooseFtr.Size = new System.Drawing.Size(157, 22);
+            this.lbl_ChooseFtr.TabIndex = 16;
+            this.lbl_ChooseFtr.Text = "Choose Feature: ";
+            // 
+            // cbb_Feature
+            // 
+            this.cbb_Feature.FormattingEnabled = true;
+            this.cbb_Feature.Items.AddRange(new object[] {
+            "Friends Recommendation",
+            "Explore Friends"});
+            this.cbb_Feature.Location = new System.Drawing.Point(320, 457);
+            this.cbb_Feature.Name = "cbb_Feature";
+            this.cbb_Feature.Size = new System.Drawing.Size(121, 21);
+            this.cbb_Feature.TabIndex = 17;
+            this.cbb_Feature.SelectedIndexChanged += new System.EventHandler(this.cbb_Feature_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(742, 750);
+            this.ClientSize = new System.Drawing.Size(742, 784);
+            this.Controls.Add(this.cbb_Feature);
+            this.Controls.Add(this.lbl_ChooseFtr);
             this.Controls.Add(this.lbl_filename);
             this.Controls.Add(this.panelViewer);
             this.Controls.Add(this.Lbl_FriendsRecom);
@@ -248,6 +274,8 @@ namespace PrototypeUI
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Panel panelViewer;
         private System.Windows.Forms.Label lbl_filename;
+        private System.Windows.Forms.Label lbl_ChooseFtr;
+        private System.Windows.Forms.ComboBox cbb_Feature;
     }
 }
 

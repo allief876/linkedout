@@ -296,5 +296,18 @@ namespace PrototypeUI
             }
             return null;
         }
+
+        private void cbb_Feature_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string FriendRecom = "Friends Recommendation";
+            if (this.cbb_Feature.SelectedItem.ToString() == FriendRecom )
+            {
+                this.Cbb_2.Enabled = false;
+            }
+            else
+            {
+                this.Cbb_2.Enabled = true;
+            }
+        }
     }
 }
