@@ -44,6 +44,7 @@ namespace PrototypeUI
             this.Lbl_FriendsRecom = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panelViewer = new System.Windows.Forms.Panel();
+            this.lbl_filename = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -148,7 +149,7 @@ namespace PrototypeUI
             this.Cbb_2.Name = "Cbb_2";
             this.Cbb_2.Size = new System.Drawing.Size(121, 21);
             this.Cbb_2.TabIndex = 10;
-            this.Cbb_2.Text = "Nama SImpul";
+            this.Cbb_2.SelectedIndexChanged += new System.EventHandler(this.Cbb_2_SelectedIndexChanged);
             // 
             // Cbb_1
             // 
@@ -157,7 +158,7 @@ namespace PrototypeUI
             this.Cbb_1.Name = "Cbb_1";
             this.Cbb_1.Size = new System.Drawing.Size(121, 21);
             this.Cbb_1.TabIndex = 11;
-            this.Cbb_1.Text = "NamaSimpul";
+            this.Cbb_1.SelectedIndexChanged += new System.EventHandler(this.Cbb_1_SelectedIndexChanged);
             // 
             // btn_submit
             // 
@@ -191,11 +192,21 @@ namespace PrototypeUI
             this.panelViewer.Size = new System.Drawing.Size(647, 271);
             this.panelViewer.TabIndex = 14;
             // 
+            // lbl_filename
+            // 
+            this.lbl_filename.AutoSize = true;
+            this.lbl_filename.Location = new System.Drawing.Point(331, 105);
+            this.lbl_filename.Name = "lbl_filename";
+            this.lbl_filename.Size = new System.Drawing.Size(0, 13);
+            this.lbl_filename.TabIndex = 15;
+            this.lbl_filename.Click += new System.EventHandler(this.lbl_filename_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(742, 750);
+            this.Controls.Add(this.lbl_filename);
             this.Controls.Add(this.panelViewer);
             this.Controls.Add(this.Lbl_FriendsRecom);
             this.Controls.Add(this.btn_submit);
@@ -236,6 +247,7 @@ namespace PrototypeUI
         private System.Windows.Forms.Label Lbl_FriendsRecom;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Panel panelViewer;
+        private System.Windows.Forms.Label lbl_filename;
     }
 }
 
