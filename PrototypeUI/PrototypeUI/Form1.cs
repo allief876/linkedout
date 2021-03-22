@@ -309,6 +309,8 @@ namespace PrototypeUI
             if (this.cbb_Feature.SelectedItem.ToString() == FriendRecom )
             {
                 this.Cbb_2.Enabled = false;
+
+                // Friend Recom tidak dependent terhadap algoritma dfs/bfs apa yang dipakai
                 this.radioButton1.Enabled = false;
                 this.radioButton2.Enabled = false;
             }
