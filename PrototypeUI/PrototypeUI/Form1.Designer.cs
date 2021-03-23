@@ -48,6 +48,7 @@ namespace PrototypeUI
             this.lbl_ChooseFtr = new System.Windows.Forms.Label();
             this.cbb_Feature = new System.Windows.Forms.ComboBox();
             this.btn_reset = new System.Windows.Forms.Button();
+            this.panel_output = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -166,7 +167,7 @@ namespace PrototypeUI
             // btn_submit
             // 
             this.btn_submit.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_submit.Location = new System.Drawing.Point(83, 568);
+            this.btn_submit.Location = new System.Drawing.Point(83, 562);
             this.btn_submit.Name = "btn_submit";
             this.btn_submit.Size = new System.Drawing.Size(123, 34);
             this.btn_submit.TabIndex = 12;
@@ -178,7 +179,7 @@ namespace PrototypeUI
             // 
             this.Lbl_FriendsRecom.AutoSize = true;
             this.Lbl_FriendsRecom.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Lbl_FriendsRecom.Location = new System.Drawing.Point(79, 621);
+            this.Lbl_FriendsRecom.Location = new System.Drawing.Point(79, 599);
             this.Lbl_FriendsRecom.Name = "Lbl_FriendsRecom";
             this.Lbl_FriendsRecom.Size = new System.Drawing.Size(138, 22);
             this.Lbl_FriendsRecom.TabIndex = 13;
@@ -195,6 +196,7 @@ namespace PrototypeUI
             this.panelViewer.Name = "panelViewer";
             this.panelViewer.Size = new System.Drawing.Size(647, 293);
             this.panelViewer.TabIndex = 14;
+            this.panelViewer.Paint += new System.Windows.Forms.PaintEventHandler(this.panelViewer_Paint);
             // 
             // lbl_filename
             // 
@@ -230,7 +232,7 @@ namespace PrototypeUI
             // btn_reset
             // 
             this.btn_reset.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_reset.Location = new System.Drawing.Point(232, 568);
+            this.btn_reset.Location = new System.Drawing.Point(221, 562);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(123, 34);
             this.btn_reset.TabIndex = 18;
@@ -238,11 +240,20 @@ namespace PrototypeUI
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
+            // panel_output
+            // 
+            this.panel_output.Location = new System.Drawing.Point(83, 624);
+            this.panel_output.Name = "panel_output";
+            this.panel_output.Size = new System.Drawing.Size(647, 148);
+            this.panel_output.TabIndex = 19;
+            this.panel_output.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_output_Paint);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(742, 784);
+            this.Controls.Add(this.panel_output);
             this.Controls.Add(this.btn_reset);
             this.Controls.Add(this.cbb_Feature);
             this.Controls.Add(this.lbl_ChooseFtr);
@@ -291,6 +302,7 @@ namespace PrototypeUI
         private System.Windows.Forms.Label lbl_ChooseFtr;
         private System.Windows.Forms.ComboBox cbb_Feature;
         private System.Windows.Forms.Button btn_reset;
+        private System.Windows.Forms.Panel panel_output;
     }
 }
 

@@ -51,7 +51,7 @@ namespace PrototypeUI
 
         private void label7_Click(object sender, EventArgs e)
         {
-            
+
         }
         // button browse
         private void button1_Click(object sender, EventArgs e) //Browse
@@ -72,8 +72,8 @@ namespace PrototypeUI
                     //Console.WriteLine(text); <-- debugging mode
                     parsingFile(text);
 
-                    this.lbl_filename.Text =(Path.GetFileName(file));
-                    
+                    this.lbl_filename.Text = (Path.GetFileName(file));
+
 
                 }
                 catch (IOException)
@@ -81,10 +81,10 @@ namespace PrototypeUI
                 }
             }
 
-            
+
             //Console.WriteLine(size); // <-- Shows file size in debugging mode.
             //Console.WriteLine(result); // <-- For debugging use.       
-            
+
         }
 
         private void parsingFile(string[] lines)
@@ -138,7 +138,7 @@ namespace PrototypeUI
             //create a viewer object 
             Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
             //create a graph object 
-            
+
 
             //graph_pic.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
             //graph_pic.Attr.ArrowheadAtSource = Microsoft.Msagl.Drawing.ArrowStyle.None;
@@ -153,7 +153,7 @@ namespace PrototypeUI
                 edge.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
                 graph[node.IndexOf(lines2[0]), node.IndexOf(lines2[1])] = 1;
                 graph[node.IndexOf(lines2[1]), node.IndexOf(lines2[0])] = 1;
-                
+
             }
 
             //bind the graph to the viewer 
@@ -163,17 +163,17 @@ namespace PrototypeUI
             //associate the viewer with the form 
             this.SuspendLayout();
             //this.Controls.Add(viewer);
-            
-           
+
+
             this.panelViewer.Controls.Add(viewer);
-            
+
 
             this.ResumeLayout();
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
@@ -205,7 +205,7 @@ namespace PrototypeUI
 
         private void Cbb_2_SelectedIndexChanged(object sender, EventArgs e)
         {
-                                
+
 
         }
 
@@ -315,19 +315,29 @@ namespace PrototypeUI
         private void cbb_Feature_SelectedIndexChanged(object sender, EventArgs e)
         {
             string FriendRecom = "Friends Recommendation";
-            if (this.cbb_Feature.SelectedItem.ToString() == FriendRecom )
+            if (this.cbb_Feature.SelectedItem.ToString() == FriendRecom)
             {
                 this.Cbb_2.Enabled = false;
 
                 // Friend Recom tidak dependent terhadap algoritma dfs/bfs apa yang dipakai
                 this.radioButton1.Enabled = false;
                 this.radioButton2.Enabled = false;
+                //this.Cbb_1.Items.Clear();
+                this.Cbb_1.ResetText();
+
+                //this.Cbb_2.Items.Clear();
+                this.Cbb_2.ResetText();
             }
             else
             {
                 this.Cbb_2.Enabled = true;
                 this.radioButton1.Enabled = true;
                 this.radioButton2.Enabled = true;
+                //this.Cbb_1.Items.Clear();
+                this.Cbb_1.ResetText();
+
+                //this.Cbb_2.Items.Clear();
+                this.Cbb_2.ResetText();
             }
         }
         private void addColorFromMatrix(int[,] colorMatrix)
@@ -520,54 +530,55 @@ namespace PrototypeUI
                 {
                     int accidx = node.FindIndex(name => name == account);
 
-                    /**List<int> ListTetanggaAwal;
-                    List<int> ListTetanggaAkhir;
-                    ListTetanggaAwal = tetangga(accidx);
-
-                    foreach (int i in ListTetanggaAwal){
-                        ListTetanggaAkhir = tetangga(i);
-                    }
-                    ListTetanggaAkhir.Distinct**/
                     List<int> tetanggaaccount = tetangga(accidx);
                     List<int> friendwithmutual = new List<int>();
                     List<int> friendwithmutualdist;
-                    List<int> friendwithmutualcount = new List<int>();
+                    List<(int, int, List<int>)> mutualtuple = new List<(int, int, List<int>)>();
+                    // tuple value <int nodeid, int mutualcount, List<int> mutualnodeid>
 
-                  
+
                     foreach (int ttg in tetanggaaccount)
                     {
                         foreach (int ttg2 in tetangga(ttg))
                         {
                             bool idx = tetanggaaccount.FindIndex(x => x == ttg2) != -1;
-                            if (!idx&&(ttg2!=accidx)) friendwithmutual.Add(ttg2);
+                            if (!idx && ttg2 != accidx) friendwithmutual.Add(ttg2);
                         }
                     }
 
                     friendwithmutualdist = friendwithmutual.Distinct().ToList();
 
-                    foreach (int ttg in friendwithmutualdist)
+                    //foreach (int ttg in friendwithmutualdist)
+                    for (int i = 0; i < friendwithmutualdist.Count; i++)
                     {
+                        int ttg = friendwithmutualdist[i];
                         int count = friendwithmutual.Where(x => x == ttg).Count();
-                        friendwithmutualcount.Add(count);
+                        List<int> mutual = new List<int>();
+                        foreach (int ttg2 in tetangga(ttg))
+                        {
+                            bool idx = tetanggaaccount.FindIndex(x => x == ttg2) != -1;
+                            if (idx) mutual.Add(ttg2);
+                        }
+                        mutualtuple.Add((ttg, count, mutual));
                     }
-                    //friendwithmutualdist.Sort();
-                    Console.WriteLine("Temennya temen:");
-                    Console.WriteLine();
-                    int j = 0;
-                    foreach (int i in friendwithmutualdist)
+
+                    mutualtuple.Sort((x, y) => y.Item2.CompareTo(x.Item2));
+
+                    foreach ((int, int, List<int>) a in mutualtuple)
                     {
-                        Console.WriteLine(node[i]);
-                        Console.WriteLine("dengan jumlah mutual:");
-                        Console.WriteLine(friendwithmutualcount[j]);
-                        Console.WriteLine(node[friendwithmutual[j]]);
+                        Console.Write("Nama akun: ");
+                        Console.WriteLine(node[a.Item1]);
+                        Console.Write("Total mutual: ");
+                        Console.WriteLine(a.Item2);
+                        Console.Write("Mutualnya: ");
+                        foreach (int mut in a.Item3)
+                        {
+                            Console.Write(node[mut] + " ");
+                        }
                         Console.WriteLine();
-                        j++;
                     }
-              
-
-
-
                 }
+
                 else
                 {
 
@@ -582,7 +593,7 @@ namespace PrototypeUI
                     {
                         type = "bfs";
                     }
-                    
+
 
                     if (type == "dfs")
                     {
@@ -618,7 +629,18 @@ namespace PrototypeUI
 
                     }
                 }
+
+
             }
+        }
+
+        private void panel_output_Paint(object sender, PaintEventArgs e)
+        {
+            //this.panel_output.Controls.la
+        }
+
+        private void panelViewer_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }
