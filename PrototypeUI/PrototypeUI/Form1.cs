@@ -157,10 +157,10 @@ namespace PrototypeUI
 
             //bind the graph to the viewer 
             viewer.Graph = graph_pic;
+            viewer.Name = "graphViewer";
+            viewer.Dock = System.Windows.Forms.DockStyle.Fill;
             //associate the viewer with the form 
             this.SuspendLayout();
-
-            //viewer.Dock = System.Windows.Forms.DockStyle.Fill;
             //this.Controls.Add(viewer);
             
            
@@ -352,6 +352,7 @@ namespace PrototypeUI
 
             viewer.Graph = graph_pic2;
             viewer.Name = "graphViewer";
+            viewer.Dock = System.Windows.Forms.DockStyle.Fill;
 
             this.SuspendLayout();
             this.panelViewer.Controls.Clear();
@@ -364,6 +365,7 @@ namespace PrototypeUI
             Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
             viewer.Graph = graph_pic;
             viewer.Name = "graphViewer";
+            viewer.Dock = System.Windows.Forms.DockStyle.Fill;
 
             this.SuspendLayout();
             this.panelViewer.Controls.Clear();
