@@ -48,7 +48,7 @@ namespace PrototypeUI
             this.lbl_ChooseFtr = new System.Windows.Forms.Label();
             this.cbb_Feature = new System.Windows.Forms.ComboBox();
             this.btn_reset = new System.Windows.Forms.Button();
-            this.panel_output = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -240,20 +240,24 @@ namespace PrototypeUI
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
-            // panel_output
+            // textBox1
             // 
-            this.panel_output.Location = new System.Drawing.Point(83, 624);
-            this.panel_output.Name = "panel_output";
-            this.panel_output.Size = new System.Drawing.Size(647, 148);
-            this.panel_output.TabIndex = 19;
-            this.panel_output.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_output_Paint);
+            this.textBox1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(83, 624);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(647, 103);
+            this.textBox1.TabIndex = 19;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(742, 784);
-            this.Controls.Add(this.panel_output);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btn_reset);
             this.Controls.Add(this.cbb_Feature);
             this.Controls.Add(this.lbl_ChooseFtr);
@@ -302,7 +306,7 @@ namespace PrototypeUI
         private System.Windows.Forms.Label lbl_ChooseFtr;
         private System.Windows.Forms.ComboBox cbb_Feature;
         private System.Windows.Forms.Button btn_reset;
-        private System.Windows.Forms.Panel panel_output;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

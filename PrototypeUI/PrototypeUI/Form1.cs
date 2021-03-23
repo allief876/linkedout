@@ -19,6 +19,10 @@ namespace PrototypeUI
         private List<int> visited;
         private List<String> path = new List<String>();
         private Microsoft.Msagl.Drawing.Graph graph_pic;
+        private string[] OutputFriendRecom;
+        private string[] OutputTemp;
+        string output = "";
+
         public Form1()
         {
             InitializeComponent();
@@ -26,6 +30,12 @@ namespace PrototypeUI
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.cbb_Feature.Enabled = false;
+            this.radioButton1.Enabled = false;
+            this.radioButton2.Enabled = false;
+            this.Cbb_1.Enabled = false;
+            this.Cbb_2.Enabled = false;
+            this.btn_submit.Enabled = false;
 
         }
 
@@ -62,11 +72,21 @@ namespace PrototypeUI
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             int size = -1;
             DialogResult result = openFileDialog1.ShowDialog(); // Show the dialog.
+
+            
+
             if (result == DialogResult.OK) // Test result.
             {
                 string file = openFileDialog1.FileName;
                 try
                 {
+                    this.cbb_Feature.Enabled = true;
+                    this.radioButton1.Enabled = true;
+                    this.radioButton2.Enabled = true;
+                    this.Cbb_1.Enabled = true;
+                    this.Cbb_2.Enabled = true;
+                    this.btn_submit.Enabled = true;
+
                     string[] text = File.ReadAllLines(file);
                     size = text.Length;
                     //Console.WriteLine(text); <-- debugging mode
@@ -80,6 +100,7 @@ namespace PrototypeUI
                 {
                 }
             }
+           
 
 
             //Console.WriteLine(size); // <-- Shows file size in debugging mode.
@@ -522,6 +543,7 @@ namespace PrototypeUI
             string FriendRecom = "Friends Recommendation";
             string selecteditem = this.cbb_Feature.SelectedItem.ToString();
             resetGraph();
+           
 
             if (selecteditem != null)
             {
@@ -563,20 +585,39 @@ namespace PrototypeUI
                     }
 
                     mutualtuple.Sort((x, y) => y.Item2.CompareTo(x.Item2));
-
+                  
                     foreach ((int, int, List<int>) a in mutualtuple)
                     {
                         Console.Write("Nama akun: ");
                         Console.WriteLine(node[a.Item1]);
+                        output += "Nama akun: \r\n" + node[a.Item1] + "\r\n";
                         Console.Write("Total mutual: ");
                         Console.WriteLine(a.Item2);
+                        output += "Total mutual: " + a.Item2 + "\r\n";
                         Console.Write("Mutualnya: ");
+                        //OutputFriendRecom[g] = node[a.Item1];
+                        //OutputFriendRecom[g + 1] = a.Item2.ToString(); 
+                        //int h = 0;
+
+                        output += "Mutualnya: \r\n";
                         foreach (int mut in a.Item3)
                         {
                             Console.Write(node[mut] + " ");
+                            //OutputTemp[h] = node[mut] + " ";
+                            output += node[mut] + " ";
+
+
                         }
                         Console.WriteLine();
+                        output += "\r\n\r\n";
+                        
+
+
                     }
+                    Console.WriteLine("ini stringnya:");
+                    Console.WriteLine(output);
+                    this.textBox1.Multiline = true;
+                    this.textBox1.Text = output;
                 }
 
                 else
@@ -601,8 +642,10 @@ namespace PrototypeUI
                         int targetidx = node.FindIndex(name => name == target);
                         int[,] result = dfs(accidx, targetidx);
                         String output = "";
+                        String stndrd = "";
                         if (result != null)
                         {
+                            output += "Nama Akun: " + node[accidx] + " dan " + node[targetidx] + "\r\n";
                             path.Reverse();
                             for (int i = 0; i < path.Count(); i++)
                             {
@@ -613,6 +656,8 @@ namespace PrototypeUI
                                 }
                             }
                             Console.WriteLine(output);
+                            
+                            this.textBox1.Text = output;
                             addColorFromMatrix(result);
                             // blm ditambahin output text
                             clearVisited();
@@ -628,6 +673,7 @@ namespace PrototypeUI
                         BFS(account, node, graph, target);
 
                     }
+                 
                 }
 
 
@@ -642,6 +688,16 @@ namespace PrototypeUI
         private void panelViewer_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+            
         }
     }
 }
