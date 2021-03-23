@@ -17,6 +17,7 @@ namespace PrototypeUI
         private int[,] graph;
         private List<String> node;
         private List<int> visited;
+        private List<String> path = new List<String>();
         private Microsoft.Msagl.Drawing.Graph graph_pic;
         public Form1()
         {
@@ -275,6 +276,8 @@ namespace PrototypeUI
                     {
                         if (ttg[i] == idtarget)
                         {
+                            path.Add(node[idtarget]);
+                            path.Add(node[idawal]);
                             return EmptyGraphWithEdge(idawal, idtarget);
                         }
                         else
@@ -282,6 +285,7 @@ namespace PrototypeUI
                             int[,] otw = dfs(ttg[i], idtarget);
                             if (otw != null)
                             {
+                                path.Add(node[idawal]);
                                 int[,] ret = EmptyGraphWithEdge(idawal, ttg[i]);
                                 return addMatrix(ret, otw);
                             }
@@ -298,6 +302,7 @@ namespace PrototypeUI
                         int[,] otw = dfs(ttg[i], idtarget);
                         if (otw != null)
                         {
+                            path.Add(node[idawal]);
                             int[,] ret = EmptyGraphWithEdge(idawal, ttg[i]);
                             return addMatrix(ret, otw);
                         }
@@ -584,11 +589,23 @@ namespace PrototypeUI
                         int accidx = node.FindIndex(name => name == account);
                         int targetidx = node.FindIndex(name => name == target);
                         int[,] result = dfs(accidx, targetidx);
+                        String output = "";
                         if (result != null)
                         {
+                            path.Reverse();
+                            for (int i = 0; i < path.Count(); i++)
+                            {
+                                output += path[i];
+                                if (i < path.Count() - 1)
+                                {
+                                    output += " -> ";
+                                }
+                            }
+                            Console.WriteLine(output);
                             addColorFromMatrix(result);
                             // blm ditambahin output text
                             clearVisited();
+                            path.Clear();
                         }
                         else
                         {
