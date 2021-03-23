@@ -426,7 +426,7 @@ namespace PrototypeUI
             resetGraph();
 
         }
-        private bool SudahDikunjungiSemua(bool[] visited)
+        /*private bool SudahDikunjungiSemua(bool[] visited)
         {
             int i = 0;
             while (i < visited.Length)
@@ -441,8 +441,8 @@ namespace PrototypeUI
                 }
             }
             return true;
-        }
-        private void BFS(string str, List<string> orang_dist, int[,] matrix_adj, string target)
+        }*/
+        private bool BFS(string str, List<string> orang_dist, int[,] matrix_adj, string target, int[] pred, int[] dist)
         {
             // Visited vector to so that
             // a vertex is not visited more than once
@@ -458,6 +458,8 @@ namespace PrototypeUI
             for (int i = 0; i < visited.Length; i++)
             {
                 visited[i] = false;
+                dist[i] = 99999;
+                pred[i] = -1;
             }
 
             List<int> q = new List<int>();
@@ -465,11 +467,12 @@ namespace PrototypeUI
 
             // Set source as visited
             visited[start] = true;
+            dist[start] = 0;
             int[,] matrix_adj_new = new int[orang_dist.Count, orang_dist.Count];
 
             int vis;
 
-            while (q.Count != 0 && !SudahDikunjungiSemua(visited))
+            while (q.Count != 0)
             {
                 vis = q[0];
 
@@ -482,60 +485,64 @@ namespace PrototypeUI
                 {
                     if (matrix_adj[vis, i] == 1 && (!visited[i]))
                     {
-
                         // Push the adjacent node to the queue
                         q.Add(i);
                         q.Sort();
 
                         // Set
                         visited[i] = true;
+                        dist[i] = dist[vis] + 1;
+                        pred[i] = vis;
                         matrix_adj_new[vis, i] = 1;
                         matrix_adj_new[i, vis] = 1;
-                    }
-                }
-
-                if (q.Count == 0) // Cek ada node yang tidak terhubung
-                {
-                    int i = 0;
-                    bool ketemu = false;
-                    while (i < visited.Length && !ketemu)
-                    {
-                        if (!visited[i])
+                        if (visited[idx_target])
                         {
-                            q.Add(i);
-                            visited[i] = true;
-                            ketemu = true;
+                            return true;
                         }
-                        i++;
                     }
                 }
             }
+            return false;
+        }
 
-            Console.Write("\n");
+        private void printBFS(string str, List<string> orang_dist, int[,] matrix_adj, string target)
+        {
+            int[] pred = new int[orang_dist.Count];
+            int[] dist = new int[orang_dist.Count];
 
-            for (int i = 0; i < orang_dist.Count; i++)
+            if (!BFS(str, orang_dist, matrix_adj, target, pred, dist))
             {
-                for (int j = 0; j < orang_dist.Count; j++)
-                {
-                    Console.Write(matrix_adj_new[i, j] + " ");
-                }
-                Console.Write("\n");
+                Console.Write("Nama Akun " + str + " " + target + "\n");
+                Console.Write("Tidak ada jalur koneksi yang tersedia\n");
+                Console.Write("Anda harus memulai koneksi baru itu sendiri\n");
             }
 
-            int edge_new = 0;
-
-            for (int i = 0; i < orang_dist.Count; i++)
+            else
             {
-                for (int j = 0; j < orang_dist.Count; j++)
+                List<int> path = new List<int>();
+                int crawl = orang_dist.IndexOf(target);
+                path.Add(crawl);
+                while (pred[crawl] != -1)
                 {
-                    edge_new += matrix_adj_new[i, j];
+                    path.Add(pred[crawl]);
+                    crawl = pred[crawl];
                 }
+                Console.Write("Path terpendek adalah ");
+                Console.Write(dist[orang_dist.IndexOf(target)] - 1);
+                Console.WriteLine("");
+                Console.WriteLine("Path is");
+                for (int i = path.Count - 1; i >= 0; i--)
+                {
+                    Console.Write(orang_dist[path[i]] + " ");
+                }
+                int[,] matrix_adj_new = new int[orang_dist.Count, orang_dist.Count];
+                for (int i = 0; i < path.Count - 1; i++)
+                {
+                    matrix_adj_new[path[i], path[i + 1]] = 1;
+                    matrix_adj_new[path[i + 1], path[i]] = 1;
+                }
+                addColorFromMatrix(matrix_adj_new);
             }
-
-            Console.Write(edge_new / 2 + "\n\n");
-            addColorFromMatrix(matrix_adj_new);
-
-
         }
 
         private void btn_submit_Click_1(object sender, EventArgs e)
@@ -642,10 +649,32 @@ namespace PrototypeUI
                         int targetidx = node.FindIndex(name => name == target);
                         int[,] result = dfs(accidx, targetidx);
                         String output = "";
-                        String stndrd = "";
+                        output += "Nama Akun: " + node[accidx] + " dan " + node[targetidx] + "\r\n";
                         if (result != null)
                         {
-                            output += "Nama Akun: " + node[accidx] + " dan " + node[targetidx] + "\r\n";
+                            String stndrd = "";
+                            int deg = path.Count() - 2;
+                            if (deg%100 >= 11 && deg%100 <= 19)
+                            {
+                              stndrd = "th";
+                            } else
+                            {
+                                int mod =  deg  %  10;
+                                if (mod == 1)
+                                {
+                                    stndrd = "st";
+                                } else if (mod == 2)
+                                {
+                                    stndrd = "nd";
+                                } else if (mod == 3)
+                                {
+                                    stndrd = "rd";
+                                } else
+                                {                                    
+                                    stndrd = "th";
+                                }
+                            }
+                            output += deg + stndrd + "-degree connection\r\n";
                             path.Reverse();
                             for (int i = 0; i < path.Count(); i++)
                             {
@@ -656,8 +685,6 @@ namespace PrototypeUI
                                 }
                             }
                             Console.WriteLine(output);
-                            
-                            this.textBox1.Text = output;
                             addColorFromMatrix(result);
                             // blm ditambahin output text
                             clearVisited();
@@ -665,12 +692,13 @@ namespace PrototypeUI
                         }
                         else
                         {
-                            // handling error
+                            output += "Tidak ada jalur koneksi yang tersedia\r\nAnda harus memulai koneksi baru itu sendiri.";
                         }
+                        this.textBox1.Text = output;
                     }
                     else if (type == "bfs")
                     {
-                        BFS(account, node, graph, target);
+                        printBFS(account, node, graph, target);
 
                     }
                  
