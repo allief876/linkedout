@@ -425,6 +425,8 @@ namespace PrototypeUI
             this.radioButton2.Checked = false;
             resetGraph();
 
+            this.textBox1.Text = "";
+
         }
         /*private bool SudahDikunjungiSemua(bool[] visited)
         {
@@ -519,6 +521,9 @@ namespace PrototypeUI
 
             else
             {
+                String outputBFS = "";
+                outputBFS += "Nama Akun: " + str + " dan " + target + "\r\n";
+
                 List<int> path = new List<int>();
                 int crawl = orang_dist.IndexOf(target);
                 path.Add(crawl);
@@ -531,10 +536,50 @@ namespace PrototypeUI
                 Console.Write(dist[orang_dist.IndexOf(target)] - 1);
                 Console.WriteLine("");
                 Console.WriteLine("Path is");
+                string stndrd = "";
+                int deg = path.Count() - 2;
+                if (deg % 100 >= 11 && deg % 100 <= 19)
+                {
+                    stndrd = "th";
+                }
+                else
+                {
+                    int mod = deg % 10;
+                    if (mod == 1)
+                    {
+                        stndrd = "st";
+                    }
+                    else if (mod == 2)
+                    {
+                        stndrd = "nd";
+                    }
+                    else if (mod == 3)
+                    {
+                        stndrd = "rd";
+                    }
+                    else
+                    {
+                        stndrd = "th";
+                    }
+                }
+                outputBFS += deg + stndrd + "-degree connection\r\n";
+
+                
+
                 for (int i = path.Count - 1; i >= 0; i--)
                 {
                     Console.Write(orang_dist[path[i]] + " ");
+                    if (i == 0)
+                    {
+                        outputBFS += orang_dist[path[i]];
+                    }
+                    else
+                    {
+                        outputBFS += orang_dist[path[i]] + " -> ";
+                    }
                 }
+                this.textBox1.Text = outputBFS;
+
                 int[,] matrix_adj_new = new int[orang_dist.Count, orang_dist.Count];
                 for (int i = 0; i < path.Count - 1; i++)
                 {
