@@ -9,6 +9,7 @@ Algoritma yang diimplementasikan ada 3, yaitu:
 
 ## Requirement program
 Operating System: Tested in Windows 10
+
 Untuk mengedit, direkomendasikan untuk menggunakan Visual Studio 2019
 
 ## Cara menggunakan program
