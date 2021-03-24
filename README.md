@@ -1,6 +1,5 @@
 # linkedout
-Tugas Besar 2 IF2211
-
+Tugas Besar II IF2211 Strategi Algoritma 2020-2
 
 ## Penjelasan singkat algoritma yang diimplementasikan
 Algoritma yang diimplementasikan ada 3, yaitu:
@@ -9,7 +8,8 @@ Algoritma yang diimplementasikan ada 3, yaitu:
 * Tetangga-dari-tetangga
 
 ## Requirement program
-Operating System: Windows (Recommended: Windows 10)
+Operating System: Tested in Windows 10
+Untuk mengedit, direkomendasikan untuk menggunakan Visual Studio 2019
 
 ## Cara menggunakan program
 1. Buka folder bin
