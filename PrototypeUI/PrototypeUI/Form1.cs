@@ -78,15 +78,10 @@ namespace PrototypeUI
                 try
                 {
                     this.cbb_Feature.Enabled = true;
-                    //this.radioButton1.Enabled = true;
-                    //this.radioButton2.Enabled = true;
-                    //this.Cbb_1.Enabled = true;
-                    //this.Cbb_2.Enabled = true;
                     this.btn_submit.Enabled = true;
 
                     string[] text = File.ReadAllLines(file);
                     size = text.Length;
-                    //Console.WriteLine(text); <-- debugging mode
                     parsingFile(text);
 
                     this.lbl_filename.Text = (Path.GetFileName(file));
@@ -97,12 +92,6 @@ namespace PrototypeUI
                 {
                 }
             }
-
-
-
-            //Console.WriteLine(size); // <-- Shows file size in debugging mode.
-            //Console.WriteLine(result); // <-- For debugging use.       
-
         }
 
         private void parsingFile(string[] lines)
@@ -157,11 +146,6 @@ namespace PrototypeUI
             Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
             //create a graph object 
 
-
-            //graph_pic.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
-            //graph_pic.Attr.ArrowheadAtSource = Microsoft.Msagl.Drawing.ArrowStyle.None;
-            //create the graph content 
-
             for (int i = 1; i < lines.Length; i++)
             {
                 //create the graph content 
@@ -178,14 +162,10 @@ namespace PrototypeUI
             viewer.Graph = graph_pic;
             viewer.Name = "graphViewer";
             viewer.Dock = System.Windows.Forms.DockStyle.Fill;
+
             //associate the viewer with the form 
             this.SuspendLayout();
-            //this.Controls.Add(viewer);
-
-
             this.panelViewer.Controls.Add(viewer);
-
-
             this.ResumeLayout();
         }
 
@@ -223,7 +203,6 @@ namespace PrototypeUI
 
         private void Cbb_2_SelectedIndexChanged(object sender, EventArgs e)
         {
-
 
         }
 
@@ -351,6 +330,7 @@ namespace PrototypeUI
                 // Friend Recom tidak dependent terhadap algoritma dfs/bfs apa yang dipakai
                 this.radioButton1.Enabled = false;
                 this.radioButton2.Enabled = false;
+
                 //this.Cbb_1.Items.Clear();
                 this.Cbb_1.ResetText();
 
@@ -362,10 +342,7 @@ namespace PrototypeUI
                 this.Cbb_2.Enabled = true;
                 this.radioButton1.Enabled = true;
                 this.radioButton2.Enabled = true;
-                //this.Cbb_1.Items.Clear();
                 this.Cbb_1.ResetText();
-
-                //this.Cbb_2.Items.Clear();
                 this.Cbb_2.ResetText();
             }
         }
@@ -436,31 +413,15 @@ namespace PrototypeUI
             this.textBox1.Text = "";
 
         }
-        /*private bool SudahDikunjungiSemua(bool[] visited)
-        {
-            int i = 0;
-            while (i < visited.Length)
-            {
-                if (!visited[i])
-                {
-                    return false;
-                }
-                else
-                {
-                    i++;
-                }
-            }
-            return true;
-        }*/
+
         private bool BFS(string str, List<string> orang_dist, int[,] matrix_adj, string target, int[] pred, int[] dist)
         {
-            // Visited vector to so that
-            // a vertex is not visited more than once
-            // Initializing the vector to false as no
-            // vertex is visited at the beginning
 
+            // Cari dulu index dari target
             int idx_target = orang_dist.IndexOf(target);
             int v = orang_dist.Count;
+
+            // Array boolean, representasi yg udah divisit
             bool[] visited = new bool[v];
 
             int start = orang_dist.IndexOf(str);
@@ -475,7 +436,7 @@ namespace PrototypeUI
             List<int> q = new List<int>();
             q.Add(start);
 
-            // Set source as visited
+            // Source sudah dikunjungi
             visited[start] = true;
             dist[start] = 0;
             int[,] matrix_adj_new = new int[orang_dist.Count, orang_dist.Count];
@@ -486,20 +447,20 @@ namespace PrototypeUI
             {
                 vis = q[0];
 
-                // Print the current node
+                // cetak node sekarang
                 Console.Write(orang_dist[vis] + " ");
                 q.Remove(q[0]);
 
-                // For every adjacent vertex to the current vertex
+                // Untuk setiap tetangga nya node sekarang
                 for (int i = 0; i < v; i++)
                 {
                     if (matrix_adj[vis, i] == 1 && (!visited[i]))
                     {
-                        // Push the adjacent node to the queue
+                        // Push tetangga ke node
                         q.Add(i);
                         q.Sort();
 
-                        // Set
+                        // Set kalo telah dikunjungi
                         visited[i] = true;
                         dist[i] = dist[vis] + 1;
                         pred[i] = vis;
@@ -525,6 +486,10 @@ namespace PrototypeUI
                 Console.Write("Nama Akun " + str + " " + target + "\n");
                 Console.Write("Tidak ada jalur koneksi yang tersedia\n");
                 Console.Write("Anda harus memulai koneksi baru itu sendiri\n");
+                String outputBFS = "";
+                outputBFS += "Nama Akun: " + str + " dan " + target + "\r\n";
+                outputBFS += "Tidak ada jalur koneksi yang tersedia\r\nAnda harus memulai koneksi baru itu sendiri.";
+                this.textBox1.Text = outputBFS;
             }
 
             else
@@ -666,7 +631,6 @@ namespace PrototypeUI
             List<(int, int, List<int>)> mutualtuple = new List<(int, int, List<int>)>();
             // tuple value <int nodeid, int mutualcount, List<int> mutualnodeid>
 
-
             foreach (int ttg in tetanggaaccount)
             {
                 foreach (int ttg2 in tetangga(ttg))
@@ -702,15 +666,11 @@ namespace PrototypeUI
                 Console.WriteLine(a.Item2);
                 output += "Total mutual: " + a.Item2 + "\r\n";
                 Console.Write("Mutualnya: ");
-                //OutputFriendRecom[g] = node[a.Item1];
-                //OutputFriendRecom[g + 1] = a.Item2.ToString(); 
-                //int h = 0;
 
                 output += "Mutualnya: \r\n";
                 foreach (int mut in a.Item3)
                 {
                     Console.Write(node[mut] + " ");
-                    //OutputTemp[h] = node[mut] + " ";
                     output += node[mut] + " ";
 
 
@@ -777,7 +737,7 @@ namespace PrototypeUI
 
         private void panel_output_Paint(object sender, PaintEventArgs e)
         {
-            //this.panel_output.Controls.la
+
         }
 
         private void panelViewer_Paint(object sender, PaintEventArgs e)

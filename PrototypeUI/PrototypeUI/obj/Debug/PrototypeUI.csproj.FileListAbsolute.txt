@@ -25,3 +25,20 @@ D:\STEI 2019\Semester 4\Strategi Algoritma\Tubes 2\linkedout\PrototypeUI\Prototy
 D:\STEI 2019\Semester 4\Strategi Algoritma\Tubes 2\linkedout\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.csproj.CopyComplete
 D:\STEI 2019\Semester 4\Strategi Algoritma\Tubes 2\linkedout\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.exe
 D:\STEI 2019\Semester 4\Strategi Algoritma\Tubes 2\linkedout\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.pdb
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\bin\Debug\PrototypeUI.exe.config
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\bin\Debug\PrototypeUI.exe
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\bin\Debug\PrototypeUI.pdb
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\bin\Debug\Microsoft.Msagl.dll
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\bin\Debug\Microsoft.Msagl.Drawing.dll
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\bin\Debug\Microsoft.Msagl.GraphViewerGdi.dll
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\bin\Debug\Microsoft.Msagl.xml
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\bin\Debug\Microsoft.Msagl.Drawing.xml
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\bin\Debug\Microsoft.Msagl.GraphViewerGdi.xml
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.csprojAssemblyReference.cache
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.Form1.resources
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.Properties.Resources.resources
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.csproj.GenerateResource.cache
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.csproj.CoreCompileInputs.cache
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.csproj.CopyComplete
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.exe
+E:\Cool Yeah\Year-2\IV\IF2211 Stima\Tubes 2\linkedout\PrototypeUI\PrototypeUI\obj\Debug\PrototypeUI.pdb
