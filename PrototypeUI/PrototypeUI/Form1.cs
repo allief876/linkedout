@@ -19,9 +19,6 @@ namespace PrototypeUI
         private List<int> visited;
         private List<String> path = new List<String>();
         private Microsoft.Msagl.Drawing.Graph graph_pic;
-        private string[] OutputFriendRecom;
-        private string[] OutputTemp;
-        string output = "";
 
         public Form1()
         {
@@ -73,7 +70,7 @@ namespace PrototypeUI
             int size = -1;
             DialogResult result = openFileDialog1.ShowDialog(); // Show the dialog.
 
-            
+
 
             if (result == DialogResult.OK) // Test result.
             {
@@ -81,10 +78,10 @@ namespace PrototypeUI
                 try
                 {
                     this.cbb_Feature.Enabled = true;
-                    this.radioButton1.Enabled = true;
-                    this.radioButton2.Enabled = true;
-                    this.Cbb_1.Enabled = true;
-                    this.Cbb_2.Enabled = true;
+                    //this.radioButton1.Enabled = true;
+                    //this.radioButton2.Enabled = true;
+                    //this.Cbb_1.Enabled = true;
+                    //this.Cbb_2.Enabled = true;
                     this.btn_submit.Enabled = true;
 
                     string[] text = File.ReadAllLines(file);
@@ -100,7 +97,7 @@ namespace PrototypeUI
                 {
                 }
             }
-           
+
 
 
             //Console.WriteLine(size); // <-- Shows file size in debugging mode.
@@ -286,21 +283,29 @@ namespace PrototypeUI
 
         private int[,] dfs(int idawal, int idtarget)
         {
+            // mencari tetangga
             List<int> ttg = tetangga(idawal);
 
+            // menandai simpul sudah dikunjungi
             visited[idawal] = 1;
+
+            // basis, apabila simpul tujuan dan awal bersebelahan,
+            // akan dicek dulu apakah ada simpul lain yang belum dikunjungi tetapi memiliki prioritas tertinggi,
+            // yaitu memiliki abjad yang lebih rendah
             if (graph[idawal, idtarget] == 1)
             {
                 for (int i = 0; i < ttg.Count; i++)
                 {
                     if (visited[ttg[i]] == 0)
                     {
+                        // apabila tidak ada tetangga lain yang memiliki abjad lebih rendah dan langsung solusi, maka selesaikan
                         if (ttg[i] == idtarget)
                         {
                             path.Add(node[idtarget]);
                             path.Add(node[idawal]);
                             return EmptyGraphWithEdge(idawal, idtarget);
                         }
+                        // apabila ternyata ada simpul dengan abjad lebih rendah maka akan dikunjungi terlebih dahulu dgn metode DFS
                         else
                         {
                             int[,] otw = dfs(ttg[i], idtarget);
@@ -316,6 +321,8 @@ namespace PrototypeUI
             }
             else
             {
+                // traversal dengan metode DFS, dikunjungi salah satu simpul sampai buntu
+                // lalu melanjutkan ke simpul lainnya apabila buntu
                 for (int i = 0; i < ttg.Count; i++)
                 {
                     if (visited[ttg[i]] == 0)
@@ -335,6 +342,7 @@ namespace PrototypeUI
 
         private void cbb_Feature_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.Cbb_1.Enabled = true;
             string FriendRecom = "Friends Recommendation";
             if (this.cbb_Feature.SelectedItem.ToString() == FriendRecom)
             {
@@ -564,7 +572,7 @@ namespace PrototypeUI
                 }
                 outputBFS += deg + stndrd + "-degree connection\r\n";
 
-                
+
 
                 for (int i = path.Count - 1; i >= 0; i--)
                 {
@@ -590,167 +598,181 @@ namespace PrototypeUI
             }
         }
 
+        private void printDFS(string account, string target)
+        {
+            int accidx = node.FindIndex(name => name == account);
+            int targetidx = node.FindIndex(name => name == target);
+            int[,] result = dfs(accidx, targetidx);
+            String output = "";
+            output += "Nama Akun: " + node[accidx] + " dan " + node[targetidx] + "\r\n";
+            if (result != null)
+            {
+                String stndrd = "";
+                int deg = path.Count() - 2;
+                if (deg % 100 >= 11 && deg % 100 <= 19)
+                {
+                    stndrd = "th";
+                }
+                else
+                {
+                    int mod = deg % 10;
+                    if (mod == 1)
+                    {
+                        stndrd = "st";
+                    }
+                    else if (mod == 2)
+                    {
+                        stndrd = "nd";
+                    }
+                    else if (mod == 3)
+                    {
+                        stndrd = "rd";
+                    }
+                    else
+                    {
+                        stndrd = "th";
+                    }
+                }
+                output += deg + stndrd + "-degree connection\r\n";
+                path.Reverse();
+                for (int i = 0; i < path.Count(); i++)
+                {
+                    output += path[i];
+                    if (i < path.Count() - 1)
+                    {
+                        output += " -> ";
+                    }
+                }
+                Console.WriteLine(output);
+                addColorFromMatrix(result);
+                clearVisited();
+                path.Clear();
+            }
+            else
+            {
+                output += "Tidak ada jalur koneksi yang tersedia\r\nAnda harus memulai koneksi baru itu sendiri.";
+            }
+            this.textBox1.Text = output;
+        }
+
+        void printRecommendation(string account)
+        {
+            int accidx = node.FindIndex(name => name == account);
+            string output = "";
+
+            List<int> tetanggaaccount = tetangga(accidx);
+            List<int> friendwithmutual = new List<int>();
+            List<int> friendwithmutualdist;
+            List<(int, int, List<int>)> mutualtuple = new List<(int, int, List<int>)>();
+            // tuple value <int nodeid, int mutualcount, List<int> mutualnodeid>
+
+
+            foreach (int ttg in tetanggaaccount)
+            {
+                foreach (int ttg2 in tetangga(ttg))
+                {
+                    bool idx = tetanggaaccount.FindIndex(x => x == ttg2) != -1;
+                    if (!idx && ttg2 != accidx) friendwithmutual.Add(ttg2);
+                }
+            }
+
+            friendwithmutualdist = friendwithmutual.Distinct().ToList();
+
+            for (int i = 0; i < friendwithmutualdist.Count; i++)
+            {
+                int ttg = friendwithmutualdist[i];
+                int count = friendwithmutual.Where(x => x == ttg).Count();
+                List<int> mutual = new List<int>();
+                foreach (int ttg2 in tetangga(ttg))
+                {
+                    bool idx = tetanggaaccount.FindIndex(x => x == ttg2) != -1;
+                    if (idx) mutual.Add(ttg2);
+                }
+                mutualtuple.Add((ttg, count, mutual));
+            }
+
+            mutualtuple.Sort((x, y) => y.Item2.CompareTo(x.Item2));
+
+            foreach ((int, int, List<int>) a in mutualtuple)
+            {
+                Console.Write("Nama akun: ");
+                Console.WriteLine(node[a.Item1]);
+                output += "Nama akun: \r\n" + node[a.Item1] + "\r\n";
+                Console.Write("Total mutual: ");
+                Console.WriteLine(a.Item2);
+                output += "Total mutual: " + a.Item2 + "\r\n";
+                Console.Write("Mutualnya: ");
+                //OutputFriendRecom[g] = node[a.Item1];
+                //OutputFriendRecom[g + 1] = a.Item2.ToString(); 
+                //int h = 0;
+
+                output += "Mutualnya: \r\n";
+                foreach (int mut in a.Item3)
+                {
+                    Console.Write(node[mut] + " ");
+                    //OutputTemp[h] = node[mut] + " ";
+                    output += node[mut] + " ";
+
+
+                }
+                Console.WriteLine();
+                output += "\r\n\r\n";
+            }
+            Console.WriteLine("ini stringnya:");
+            Console.WriteLine(output);
+            this.textBox1.Multiline = true;
+            this.textBox1.Text = output;
+        }
+
         private void btn_submit_Click_1(object sender, EventArgs e)
         {
             string FriendRecom = "Friends Recommendation";
+
+            if (this.cbb_Feature.SelectedIndex == -1 || this.Cbb_1.SelectedIndex == -1)
+            {
+                return;
+            }
+
             string selecteditem = this.cbb_Feature.SelectedItem.ToString();
             resetGraph();
-           
 
-            if (selecteditem != null)
+
+            String account = this.Cbb_1.Items[Cbb_1.SelectedIndex].ToString();
+            if (selecteditem == FriendRecom)
             {
-                String account = this.Cbb_1.Items[Cbb_1.SelectedIndex].ToString();
-                if (selecteditem == FriendRecom)
+                printRecommendation(account);
+            }
+            else
+            {
+                if (this.Cbb_2.SelectedIndex == -1)
                 {
-                    int accidx = node.FindIndex(name => name == account);
+                    return;
+                }
+                String type = "";
+                String target = this.Cbb_2.Items[Cbb_2.SelectedIndex].ToString();
 
-                    List<int> tetanggaaccount = tetangga(accidx);
-                    List<int> friendwithmutual = new List<int>();
-                    List<int> friendwithmutualdist;
-                    List<(int, int, List<int>)> mutualtuple = new List<(int, int, List<int>)>();
-                    // tuple value <int nodeid, int mutualcount, List<int> mutualnodeid>
-
-
-                    foreach (int ttg in tetanggaaccount)
-                    {
-                        foreach (int ttg2 in tetangga(ttg))
-                        {
-                            bool idx = tetanggaaccount.FindIndex(x => x == ttg2) != -1;
-                            if (!idx && ttg2 != accidx) friendwithmutual.Add(ttg2);
-                        }
-                    }
-
-                    friendwithmutualdist = friendwithmutual.Distinct().ToList();
-
-                    //foreach (int ttg in friendwithmutualdist)
-                    for (int i = 0; i < friendwithmutualdist.Count; i++)
-                    {
-                        int ttg = friendwithmutualdist[i];
-                        int count = friendwithmutual.Where(x => x == ttg).Count();
-                        List<int> mutual = new List<int>();
-                        foreach (int ttg2 in tetangga(ttg))
-                        {
-                            bool idx = tetanggaaccount.FindIndex(x => x == ttg2) != -1;
-                            if (idx) mutual.Add(ttg2);
-                        }
-                        mutualtuple.Add((ttg, count, mutual));
-                    }
-
-                    mutualtuple.Sort((x, y) => y.Item2.CompareTo(x.Item2));
-                  
-                    foreach ((int, int, List<int>) a in mutualtuple)
-                    {
-                        Console.Write("Nama akun: ");
-                        Console.WriteLine(node[a.Item1]);
-                        output += "Nama akun: \r\n" + node[a.Item1] + "\r\n";
-                        Console.Write("Total mutual: ");
-                        Console.WriteLine(a.Item2);
-                        output += "Total mutual: " + a.Item2 + "\r\n";
-                        Console.Write("Mutualnya: ");
-                        //OutputFriendRecom[g] = node[a.Item1];
-                        //OutputFriendRecom[g + 1] = a.Item2.ToString(); 
-                        //int h = 0;
-
-                        output += "Mutualnya: \r\n";
-                        foreach (int mut in a.Item3)
-                        {
-                            Console.Write(node[mut] + " ");
-                            //OutputTemp[h] = node[mut] + " ";
-                            output += node[mut] + " ";
-
-
-                        }
-                        Console.WriteLine();
-                        output += "\r\n\r\n";
-                        
-
-
-                    }
-                    Console.WriteLine("ini stringnya:");
-                    Console.WriteLine(output);
-                    this.textBox1.Multiline = true;
-                    this.textBox1.Text = output;
+                if (this.radioButton1.Checked && !this.radioButton2.Checked)
+                {
+                    type = "dfs";
+                }
+                else if (!this.radioButton1.Checked && this.radioButton2.Checked)
+                {
+                    type = "bfs";
                 }
 
-                else
+
+                if (type == "dfs")
                 {
-
-                    String type = "";
-                    String target = this.Cbb_2.Items[Cbb_2.SelectedIndex].ToString();
-
-                    if (this.radioButton1.Checked && !this.radioButton2.Checked)
-                    {
-                        type = "dfs";
-                    }
-                    else if (!this.radioButton1.Checked && this.radioButton2.Checked)
-                    {
-                        type = "bfs";
-                    }
-
-
-                    if (type == "dfs")
-                    {
-                        int accidx = node.FindIndex(name => name == account);
-                        int targetidx = node.FindIndex(name => name == target);
-                        int[,] result = dfs(accidx, targetidx);
-                        String output = "";
-                        output += "Nama Akun: " + node[accidx] + " dan " + node[targetidx] + "\r\n";
-                        if (result != null)
-                        {
-                            String stndrd = "";
-                            int deg = path.Count() - 2;
-                            if (deg%100 >= 11 && deg%100 <= 19)
-                            {
-                              stndrd = "th";
-                            } else
-                            {
-                                int mod =  deg  %  10;
-                                if (mod == 1)
-                                {
-                                    stndrd = "st";
-                                } else if (mod == 2)
-                                {
-                                    stndrd = "nd";
-                                } else if (mod == 3)
-                                {
-                                    stndrd = "rd";
-                                } else
-                                {                                    
-                                    stndrd = "th";
-                                }
-                            }
-                            output += deg + stndrd + "-degree connection\r\n";
-                            path.Reverse();
-                            for (int i = 0; i < path.Count(); i++)
-                            {
-                                output += path[i];
-                                if (i < path.Count() - 1)
-                                {
-                                    output += " -> ";
-                                }
-                            }
-                            Console.WriteLine(output);
-                            addColorFromMatrix(result);
-                            // blm ditambahin output text
-                            clearVisited();
-                            path.Clear();
-                        }
-                        else
-                        {
-                            output += "Tidak ada jalur koneksi yang tersedia\r\nAnda harus memulai koneksi baru itu sendiri.";
-                        }
-                        this.textBox1.Text = output;
-                    }
-                    else if (type == "bfs")
-                    {
-                        printBFS(account, node, graph, target);
-
-                    }
-                 
+                    printDFS(account, target);
                 }
+                else if (type == "bfs")
+                {
+                    printBFS(account, node, graph, target);
 
+                }
 
             }
+
         }
 
         private void panel_output_Paint(object sender, PaintEventArgs e)
@@ -770,7 +792,7 @@ namespace PrototypeUI
 
         private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
-            
+
         }
     }
 }
