@@ -19,8 +19,9 @@ Untuk mengedit, direkomendasikan untuk menggunakan Visual Studio 2019
 4. Gunakan salah satu file yang ada di folder tersebut
 5. Pilih fitur yang diinginkan (Friend Recommendation / Explore Friends)
 6. Pilih algoritma jika Anda menggunakan Explore Friends (BFS / DFS)
-7. Tekan tombol submit lalu lihat hasilnya
-8. Jika ingin menggunakan lagi, tekan tombol reset lalu ulangi langkah pada nomor 5
+7. Pilih akun _sumber_ dan akun _target_
+8. Tekan tombol submit lalu lihat hasilnya
+9. Jika ingin menggunakan lagi, tekan tombol reset lalu ulangi langkah pada nomor 5
 
 ## Author
 * Rezda Abdullah Fachrezzi - 13519194
