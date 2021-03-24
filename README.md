@@ -4,7 +4,9 @@ Tugas Besar II IF2211 Strategi Algoritma 2020-2
 ## Penjelasan singkat algoritma yang diimplementasikan
 Algoritma yang diimplementasikan ada 3, yaitu:
 * BFS
+Algoritma BFS pada dasarnya mencari tetangga dari suatu node (Sebutlah sebagai node "Start"), kemudian memasukkan tetangga dari Start ke suatu Queue (Setelah semua tetangga dimasukkan, Queue diurutkan secara _ascended_ dan menandai tiap tetangga dari Start bahwa node-nya sudah dikunjungi. Kemudian akan mengambil setiap elemen di Qeueu & mengulangi proses tersebut sampai Queue kosong.
 * DFS
+Algoritma ini biasa disebut juga sebagai pencarian secara mendalam. Solusi yang dimaksud adalah sebuah persoalan yang direpresentasikan dalam bentuk Graf. Pencarian dengan algoritma DFS ini dapat digunakan untuk dua jenis graf, yaitu graf statis dan graf dinamis.
 * Tetangga-dari-tetangga
 
 ## Requirement program
