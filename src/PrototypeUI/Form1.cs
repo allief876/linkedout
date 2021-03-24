@@ -612,13 +612,13 @@ namespace PrototypeUI
                 }
                 Console.WriteLine(output);
                 addColorFromMatrix(result);
-                clearVisited();
-                path.Clear();
             }
             else
             {
                 output += "Tidak ada jalur koneksi yang tersedia\r\nAnda harus memulai koneksi baru itu sendiri.";
             }
+            path.Clear();
+            clearVisited();
             this.textBox1.Text = output;
         }
 
