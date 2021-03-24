@@ -96,6 +96,8 @@ namespace PrototypeUI
 
         private void parsingFile(string[] lines)
         {
+            this.Cbb_1.Items.Clear();
+
             visited = new List<int>();
             int length = int.Parse(lines[0]);
             graph_pic = new Microsoft.Msagl.Drawing.Graph("graph");
